@@ -1,0 +1,108 @@
+.api > table
+{
+    background: none !important;
+}
+
+.api > table td.module, .api > table td:first-child {
+    width: 100% !important;
+}
+
+.cleandoc-table {
+    margin-top: 50px;
+    width: 100%;
+    white-space: nowrap
+}
+
+.cleandoc-table .td-section {
+    display: inline-block;
+    padding: 6px !important;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.cleandoc-table code {
+    white-space: nowrap !important;
+}
+
+.cleandoc-table .tr-base > td {
+    padding-top: 30px;
+}
+
+.cleandoc-table code {
+    font-family: "Fira Mono", courier;
+    font-weight: 400;
+    white-space: normal;
+}
+
+.cleandoc-table .td-desc code {
+    background-color: #ebf2f9;
+    color: #0d2b3e;
+    border-radius: 3px;
+}
+
+// .cleandoc-table table,
+// .cleandoc-table th,
+// .cleandoc-table td {
+//     border: 1px solid black;
+//     border-collapse: collapse;
+// }
+
+.cleandoc-table .funName {
+    padding-right: 40px;
+}
+
+.cleandoc-table .typeSplitter {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.cleandoc-table .td-desc {
+    padding-left: 40px; 
+}
+
+// .cleandoc-table .td-desc code {
+//     width: 200px;
+//     display: inline-block;
+// }
+
+.cleandoc-table .equality {
+    color: grey;
+}
+
+.cleandoc-table .tooltip {
+    position: relative;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E%0A");
+  }
+
+  /* Tooltip text */
+.tooltip .tooltip-text {
+    visibility: hidden;
+    min-width: 75px;
+    max-width: 1000px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+  
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -120px;
+  
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
