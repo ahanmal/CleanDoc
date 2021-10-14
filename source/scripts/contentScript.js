@@ -7,6 +7,10 @@ const randomColor = require('randomcolor');
 const Diff = require('diff');
 const NAME_PRE_SPACES = 10;
 
+function removeAll(originalSet, toBeRemovedSet) {
+    toBeRemovedSet.forEach(Set.prototype.delete, originalSet);
+}
+
 function addTypesToRow(typeList, row, maxTypeLength) {
     for (let i = 0; i < maxTypeLength; i++) {
         if (i < typeList.length) {
@@ -18,7 +22,6 @@ function addTypesToRow(typeList, row, maxTypeLength) {
             row.appendChild(document.createElement('td'));
             row.appendChild(document.createElement('td'));
         }
-
     }
 }
 
@@ -85,7 +88,7 @@ function buildCompRow(base, comp, maxTypeLength) {
 
     let tdEl = document.createElement('td');
     tdEl.className = 'td-section';
-    tdEl.style.backgroundColor = base['color'];
+    tdEl.style.backgroundColor = comp['color'];
     tdEl.append(comp['sectionName']);
     compRow.appendChild(tdEl);
 
@@ -150,6 +153,7 @@ function buildCompRow(base, comp, maxTypeLength) {
         }
     } else {
         descTdEl.appendChild(comp['desc']);
+        console.log(descTdEl);
     }
 
     compRow.appendChild(generateTooltipHtml(comp));
@@ -239,7 +243,7 @@ function renderCleanDoc() {
         let f = {};
         f["name"] = fullName.split('val ')[1];
         f["typeString"] = preSibling.getElementsByClassName("type")[0].textContent;
-        f['sectionName'] = getFunctionSectionFromElement(element);
+        f['sectionName'] = getFunctionSectionFromElement(element) ?? 'Base';
         f['typeList'] = splitTypeString(f['typeString']);
         f["desc"] = element.getElementsByClassName("info-desc")[0];
         f['relatedFuncs'] = getRelatedFunctionsFromDesc(f['desc']);
@@ -259,26 +263,38 @@ function renderCleanDoc() {
         maxTypeSize = Math.max(maxTypeSize, f['typeList'].length);
     }
 
+    let bases = ['make', 'init', 'length', 'get', 'concat', 'equal', 'compare', 'contains', 'sub',
+                 'split_on_char', 'map', 'trim', 'escaped', 'uppercase_ascii', 'capitalize_ascii',
+                 'iter', 'index_from', 'to_seq', 'create', 'set', 'blit', 'copy', 'fill'];
 
-    for (let f1 of Object.values(functions)) {
-        for (let f2 of Object.values(functions)) {
-            if (distance(f1['name'], f2['name']) > 0.85 && f1['typeList'].length == f2['typeList'].length) {
-                g.setEdge(f1['name'], f2['name']);
+
+    let functionsToCat = new Set(Object.keys(functions));
+    removeAll(functionsToCat, bases);
+    let groupings = [];
+
+
+    for (let b of bases) {
+        let grp = [b];
+        for (let f of functionsToCat) {
+            if (distance(b, f) > 0.85) {
+                grp.push(f);
+                functionsToCat.delete(f);
             }
         }
+        groupings.push(grp);
     }
 
-    console.log(functions);
-    console.log(json.write(g));
-
+    for (let f of functionsToCat.values()) {
+        groupings.push([f]);
+    }
 
     var table = document.createElement('table');
 
     table.classList.add('cleandoc-table');
     let tblBody = document.createElement("tbody");
 
-    let components = alg.components(g);
-    for (let c of components) {
+
+    for (let c of groupings) {
         renderFunctionsAgainstBase(functions[c[0]],
             c.slice(1).map(f => functions[f]),
             tblBody,
