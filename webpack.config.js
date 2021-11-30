@@ -22,7 +22,7 @@ const extensionReloaderPlugin =
           // TODO: reload manifest on update
           contentScript: 'contentScript',
           background: 'background',
-          extensionPage: ['popup', 'options'],
+          extensionPage: ['popup'],
         },
       })
     : () => {
@@ -149,13 +149,6 @@ module.exports = {
     }),
     // write css file(s) to build folder
     new MiniCssExtractPlugin({filename: 'css/[name].css'}),
-    new HtmlWebpackPlugin({
-      template: 'source/options.html',
-      inject: 'body',
-      hash: true,
-      chunks: ['options'],
-      filename: 'options.html',
-    }),
     new HtmlWebpackPlugin({
       template: 'source/popup.html',
       inject: 'body',

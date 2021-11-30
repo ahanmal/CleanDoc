@@ -16,6 +16,7 @@
 .cleandoc-table .td-section {
     display: inline-block;
     padding: 6px !important;
+    margin: 5px !important;
     text-align: center;
     border-radius: 16px;
 }
@@ -40,12 +41,9 @@
     border-radius: 3px;
 }
 
-// .cleandoc-table table,
-// .cleandoc-table th,
-// .cleandoc-table td {
-//     border: 1px solid black;
-//     border-collapse: collapse;
-// }
+
+    .cleandoc-table .headcol {
+}
 
 .cleandoc-table .funName {
     padding-right: 40px;

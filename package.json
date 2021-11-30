@@ -33,6 +33,8 @@
     "diff-match-patch": "^1.0.5",
     "emoji-log": "^1.0.2",
     "jaro-winkler": "^0.2.8",
+    "just-permutations": "^2.0.1",
+    "ml-hclust": "^3.1.0",
     "randomcolor": "^0.6.2",
     "split-type": "^0.2.5",
     "splitting": "^1.0.6",
