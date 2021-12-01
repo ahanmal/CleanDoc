@@ -24,7 +24,7 @@ export function diffText(textA, textB) {
 export function equalityScore(textA, textB) {
     let diff = diffText(textA, textB);
     let sum = diff.reduce((acc, el) => {
-        return acc + (el.type == 'equality' ? el.text.length : 0);
+        return acc + (el.color == 'grey' ? el.text.length : 0);
     }, 0);
     return sum / textA.length;
 }

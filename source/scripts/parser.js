@@ -169,10 +169,10 @@ function sortGroupByRendering(group) {
         let scoreSum = group.reduce((acc, el) => {
             return acc + equalityScore(curr.name, el.name);
         }, 0);
-        console.log(curr.name + ' : ' + scoreSum);
         curr.groupScore = scoreSum;
     });
-    group.sort((a, b) => b.groupScore - a.groupScore);
+    group.sort((a, b) => a.groupScore - b.groupScore);
+
     return group;
 }
 
