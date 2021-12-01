@@ -54,10 +54,8 @@ module.exports = {
 
   entry: {
     manifest: './source/manifest.json',
-    background: './source/scripts/background.js',
     contentScript: './source/scripts/contentScript.js',
     popup: './source/scripts/popup.js',
-    options: './source/scripts/options.js',
   },
 
   output: {

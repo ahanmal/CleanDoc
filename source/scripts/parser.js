@@ -181,7 +181,11 @@ export function buildCluster(functionObj) {
     const c = agnes(distMatrix, {
         isDistanceMatrix: true,
     });
-    let cuts = c.cut(c.height * 0.50);
+
+    let cutValueStr = document.getElementById("cutRange").value;
+    let cutFactor = parseInt(cutValueStr) / 100.0;
+
+    let cuts = c.cut(c.height * cutFactor);
 
     let groups = [];
     cuts.forEach((cluster) => {

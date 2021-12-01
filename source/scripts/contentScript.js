@@ -4,6 +4,8 @@ import { parseFunctionList, buildCluster } from './parser';
 
 import '../styles/contentScript.scss';
 
+let parsedFunctions = null;
+
 function renderFunctionsAgainstBase(functions, tblBody, maxTypeSize) {
     tblBody.append(renderBaseRow(functions[0], maxTypeSize));
 
@@ -17,7 +19,9 @@ function renderFunctionsAgainstBase(functions, tblBody, maxTypeSize) {
 
 function renderCleanDoc() {
 
-    let parsedFunctions = parseFunctionList();
+    if (!parsedFunctions) {
+        parsedFunctions = parseFunctionList();
+    }
     let functionsObj = buildCluster(parsedFunctions);
 
     var table = document.createElement('table');
@@ -48,8 +52,6 @@ function renderCleanDoc() {
         }
     }
 
-
-
     var curr = table.nextSibling;
     while (curr != null) {
         let tmp = curr.nextSibling;
@@ -65,4 +67,10 @@ let btn = document.createElement("button");
 btn.innerHTML = "CleanDoc Me!";
 btn.onclick = renderCleanDoc;
 
+let sliderDiv = document.createElement("div");
+sliderDiv.innerHTML = '<h4>Adjust Grouping</h4> <input type="range" min="1" max="100" value="50" class="slider" id="cutRange"> \
+                      <p>Higher values increase group affinity.</p>';
+sliderDiv.className = 'slidecontainer';
+
 sidebar.appendChild(btn);
+sidebar.appendChild(sliderDiv);

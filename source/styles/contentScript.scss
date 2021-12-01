@@ -58,11 +58,6 @@
     padding-left: 40px; 
 }
 
-// .cleandoc-table .td-desc code {
-//     width: 200px;
-//     display: inline-block;
-// }
-
 .cleandoc-table .equality {
     color: grey;
 }
@@ -73,7 +68,7 @@
     height: 24px;
     width: 24px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E%0A");
-  }
+}
 
   /* Tooltip text */
 .tooltip .tooltip-text {
@@ -96,11 +91,38 @@
     /* Fade in tooltip */
     opacity: 0;
     transition: opacity 0.3s;
-  }
+}
 
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltip-text {
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
