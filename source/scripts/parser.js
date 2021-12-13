@@ -1,7 +1,5 @@
 const distance = require('jaro-winkler');
-const randomColor = require('randomcolor');
 const { agnes } = require('ml-hclust');
-import permutations from 'just-permutations';
 
 import { equalityScore } from './diff';
 
@@ -9,6 +7,45 @@ const colors =
     ["7543d9","736762","db7c4d",
      "947363","3e8db5","decffc",
      "bfe3f5","6e7d51","aad9f0","aadaf2"];
+
+function mode(array) {
+    if (array.length == 0) {
+        return null;
+    }
+    var modeMap = {};
+    var maxEl = array[0], maxCount = 1;
+    for (var i = 0; i < array.length; i++) {
+        var el = array[i];
+        if (modeMap[el] == null) {
+            modeMap[el] = 1;
+        } else {
+            modeMap[el]++;
+        }
+        if (modeMap[el] > maxCount) {
+            maxEl = el;
+            maxCount = modeMap[el];
+        }
+    }
+
+    return maxEl;
+}
+
+function getNextSibling(elem, selector) {
+
+	// Get the next sibling element
+	var sibling = elem.nextElementSibling;
+
+	// If there's no selector, return the first sibling
+	if (!selector) return sibling;
+
+	// If the sibling matches our selector, use it
+	// If not, jump to the next sibling and continue the loop
+	while (sibling) {
+		if (sibling.matches(selector)) return sibling;
+		sibling = sibling.nextElementSibling
+	}
+
+};
 
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -148,20 +185,12 @@ function buildDistanceMatrix(functionObj) {
     return distMatrix;
 }
 
-function findBaseInGroup(group) {
-    let bestBase = group[0];
-    let bestScore = 0;
-    group.forEach((curr) => {
-        let scoreSum = group.reduce((acc, el) => {
-            return acc + equalityScore(curr.name, el.name);
-        }, 0);
-        console.log(curr.name + ' : ' + scoreSum);
-        if (scoreSum >= bestScore) {
-            bestBase = curr;
-            bestScore = scoreSum;
-        }
-    });
-    return bestBase;
+export function getListOfSections() {
+    let searchResultsEl = document.getElementById('search_results');
+    let ulEl = getNextSibling(searchResultsEl, 'ul');
+    let sections = Array.from(ulEl.children).map(el => el.firstChild.text);
+    sections.push('Base');
+    return sections;
 }
 
 function sortGroupByRendering(group) {
@@ -187,7 +216,7 @@ export function buildCluster(functionObj) {
 
     let cuts = c.cut(c.height * cutFactor);
 
-    let groups = [];
+    let sectionToGroupMap = {};
     cuts.forEach((cluster) => {
         let group = [];
         cluster.indices().forEach(index => {
@@ -196,9 +225,14 @@ export function buildCluster(functionObj) {
             group.push(fun);
         });
         group = sortGroupByRendering(group);
-        groups.push(group);
+        let modeStr = mode(group.map(g => g.sectionName));
+        if (sectionToGroupMap[modeStr] == null) {
+            sectionToGroupMap[modeStr] = [group];
+        } else {
+            sectionToGroupMap[modeStr].push(group);
+        }
     });
 
-    functionObj.grouped = groups;
+    functionObj.sectionToGroups = sectionToGroupMap;
     return functionObj;
 }

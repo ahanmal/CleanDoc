@@ -1,3 +1,4 @@
+import { diffText } from '../diff';
 import { generateCodeElements, generateTooltipHtml } from './utils';
 
 const NAME_PRE_SPACES = 10;
@@ -20,7 +21,19 @@ function generateTypeElements(typeList, maxTypeLength) {
     return tdElements;
 }
 
-export function renderBaseRow(base, maxTypeLength) {
+function calculateSpaceOffset(base, next) {
+    if (next == null) {
+        return NAME_PRE_SPACES;
+    }
+    let nameDiff = diffText(next['name'], base['name']);
+    if (nameDiff.length > 0 && nameDiff[0].type == 'insertion') {
+        return NAME_PRE_SPACES - nameDiff[0].text.length;
+    } else {
+        return NAME_PRE_SPACES;
+    }
+}
+
+export function renderBaseRow(base, next, maxTypeLength) {
     let baseRow = document.createElement("tr");
     baseRow.className = 'tr-base';
 
@@ -31,7 +44,8 @@ export function renderBaseRow(base, maxTypeLength) {
     tdEl.append(base['sectionName']);
     baseRow.appendChild(tdEl);
 
-    let nameCodeElements = generateCodeElements('\xA0'.repeat(NAME_PRE_SPACES) + base['name'], 'funName');
+    let preSpaces = calculateSpaceOffset(base, next);
+    let nameCodeElements = generateCodeElements('\xA0'.repeat(preSpaces) + base['name'], 'funName');
     baseRow.appendChild(nameCodeElements.td);
 
     let typeElements = generateTypeElements(base['typeList'], maxTypeLength);

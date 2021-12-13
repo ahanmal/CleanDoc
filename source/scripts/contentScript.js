@@ -1,13 +1,14 @@
 import { renderBaseRow } from './renders/base';
 import { generateCompRow } from './renders/comparison';
-import { parseFunctionList, buildCluster } from './parser';
+import { parseFunctionList, buildCluster, getListOfSections } from './parser';
 
 import '../styles/contentScript.scss';
 
 let parsedFunctions = null;
 
 function renderFunctionsAgainstBase(functions, tblBody, maxTypeSize) {
-    tblBody.append(renderBaseRow(functions[0], maxTypeSize));
+    let nextFun = functions.length > 1 ? functions[1] : null;
+    tblBody.append(renderBaseRow(functions[0], nextFun, maxTypeSize));
 
     for (let i = 1; i < functions.length; i++) {
         let row = generateCompRow(functions[i - 1],
@@ -22,6 +23,8 @@ function renderCleanDoc() {
     if (!parsedFunctions) {
         parsedFunctions = parseFunctionList();
     }
+
+    let sectionList = getListOfSections();
     let functionsObj = buildCluster(parsedFunctions);
 
     var table = document.createElement('table');
@@ -29,10 +32,14 @@ function renderCleanDoc() {
     table.classList.add('cleandoc-table');
     let tblBody = document.createElement("tbody");
 
-    for (let funcGroup of functionsObj.grouped) {
-        renderFunctionsAgainstBase(funcGroup,
-                                   tblBody,
-                                   functionsObj.maxTypeSize);
+    for (let s of sectionList) {
+        let funcs = functionsObj.sectionToGroups[s];
+        if (funcs == null) {
+            continue;
+        }
+        funcs.forEach(funcGroup => {
+            renderFunctionsAgainstBase(funcGroup, tblBody, functionsObj.maxTypeSize);
+        });
     }
 
     table.append(tblBody);
@@ -74,3 +81,7 @@ sliderDiv.className = 'slidecontainer';
 
 sidebar.appendChild(btn);
 sidebar.appendChild(sliderDiv);
+
+document.getElementById("cutRange").oninput = function() {
+    renderCleanDoc();
+}
