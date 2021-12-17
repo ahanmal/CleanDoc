@@ -61,9 +61,12 @@ function splitTypeString(typeString) {
     let typesList = [];
     let currentFuncArgument = '';
     for (let type of splitTypes) {
-        if (type.includes('(')) {
+        let openCount = (type.match(/\(/g) || []).length;
+        let closeCount = (type.match(/\)/g) || []).length;
+        let curr = openCount - closeCount;
+        if (curr > 0) {
             currentFuncArgument = currentFuncArgument + type;
-        } else if (type.includes(')')) {
+        } else if (curr < 0) {
             currentFuncArgument = currentFuncArgument + ' -> ' + type;
             typesList.push(currentFuncArgument);
             currentFuncArgument = '';

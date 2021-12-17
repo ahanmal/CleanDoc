@@ -47,8 +47,11 @@
 .cleandoc-table .headcol {
     position: sticky;
     left: 600;
-    background: white;
     z-index: 1;
+}
+
+.cleandoc-table .headcol > code {
+    background-color: white;
 }
 
 .cleandoc-table .funName {
