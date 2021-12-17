@@ -16,9 +16,12 @@
 .cleandoc-table .td-section {
     display: inline-block;
     padding: 6px !important;
+    z-index: 2;
     margin: 5px !important;
     text-align: center;
     border-radius: 16px;
+    position: sticky;
+    left: 400;
 }
 
 .cleandoc-table code {
@@ -41,8 +44,11 @@
     border-radius: 3px;
 }
 
-
-    .cleandoc-table .headcol {
+.cleandoc-table .headcol {
+    position: sticky;
+    left: 600;
+    background: white;
+    z-index: 1;
 }
 
 .cleandoc-table .funName {

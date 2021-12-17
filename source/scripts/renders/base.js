@@ -46,6 +46,7 @@ export function renderBaseRow(base, next, maxTypeLength) {
 
     let preSpaces = calculateSpaceOffset(base, next);
     let nameCodeElements = generateCodeElements('\xA0'.repeat(preSpaces) + base['name'], 'funName');
+    nameCodeElements.td.className = 'headcol';
     baseRow.appendChild(nameCodeElements.td);
 
     let typeElements = generateTypeElements(base['typeList'], maxTypeLength);
