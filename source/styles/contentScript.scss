@@ -1,3 +1,7 @@
+.api {
+    margin-left: calc(10vw + 6ex) !important;
+}
+
 .api > table
 {
     background: none !important;
@@ -21,7 +25,7 @@
     text-align: center;
     border-radius: 16px;
     position: sticky;
-    left: 400;
+    left: 300;
 }
 
 .cleandoc-table code {
@@ -46,11 +50,8 @@
 
 .cleandoc-table .headcol {
     position: sticky;
-    left: 600;
+    left: 500;
     z-index: 1;
-}
-
-.cleandoc-table .headcol > code {
     background-color: white;
 }
 

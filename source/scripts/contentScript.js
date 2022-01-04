@@ -76,7 +76,7 @@ btn.onclick = renderCleanDoc;
 
 let sliderDiv = document.createElement("div");
 sliderDiv.innerHTML = '<h4>Adjust Grouping</h4> <input type="range" min="1" max="100" value="50" class="slider" id="cutRange"> \
-                      <p>Higher values increase group affinity.</p>';
+                      <p>Dragging the slider to the right will increase cluster size.</p>';
 sliderDiv.className = 'slidecontainer';
 
 sidebar.appendChild(btn);
