@@ -20,6 +20,8 @@ function renderFunctionsAgainstBase(functions, tblBody, maxTypeSize) {
 
 function renderCleanDoc() {
 
+    document.getElementsByClassName('api')[0].style = 'margin-left: calc(10vw + 6ex) !important;';
+
     if (!parsedFunctions) {
         parsedFunctions = parseFunctionList();
     }
