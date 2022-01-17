@@ -50,7 +50,10 @@
   
   "content_scripts": [{
     "matches": [
-      "https://ocaml.org/*"
+      "https://ocaml.org/api/*"
+    ],
+    "exclude_globs": [
+      "https://ocaml.org/api/index.html"
     ],
     "js": [
       "js/contentScript.bundle.js"
