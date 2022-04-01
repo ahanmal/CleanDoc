@@ -6,7 +6,8 @@ import { equalityScore } from './diff';
 const colors =
     ["7543d9","736762","db7c4d",
      "947363","3e8db5","decffc",
-     "bfe3f5","6e7d51","aad9f0","aadaf2"];
+     "bfe3f5","6e7d51","aad9f0","aadaf2", 
+     "A7D943", "EDFCCF", "F5D1BF", "60517D"];
 
 function mode(array) {
     if (array.length == 0) {
