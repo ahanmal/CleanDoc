@@ -50,7 +50,8 @@
   
   "content_scripts": [{
     "matches": [
-      "https://ocaml.org/api/*"
+      "https://ocaml.org/api/*",
+      "https://v2.ocaml.org/api/*"
     ],
     "exclude_globs": [
       "https://ocaml.org/api/index.html"
