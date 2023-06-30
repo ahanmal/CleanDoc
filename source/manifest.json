@@ -14,7 +14,8 @@
     "activeTab",
     "storage",
     "http://ocaml.org/*",
-    "https://ocaml.org/*"
+    "https://ocaml.org/*",
+    "https://v2.ocaml.org/*"
   ],
 
   "__dev__content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -51,7 +52,8 @@
   "content_scripts": [{
     "matches": [
       "https://ocaml.org/api/*",
-      "https://v2.ocaml.org/api/*"
+      "https://v2.ocaml.org/api/*",
+      "https://v2.ocaml.org/releases/*"
     ],
     "exclude_globs": [
       "https://ocaml.org/api/index.html"
